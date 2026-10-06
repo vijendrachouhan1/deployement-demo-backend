@@ -1,0 +1,7 @@
+{
+  "TemplateName": "WelcomeEmail",
+  "SubjectPart": "Welcome {{name}}, we're excited to have you!",
+  "HtmlPart": "<!doctype html>\r\n<html lang=\"en\">\r\n  <head>\r\n    <meta charset=\"UTF-8\" />\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\r\n    <title>Welcome Email</title>\r\n  </head>\r\n  <body>\r\n    <h1>\r\n      Welcome {{name}}, Thanks for joining us. We're excited to have you as part\r\n      of our community.\r\n    </h1>\r\n    <p>This is a boilerplate email</p>\r\n  </body>\r\n</html>\r\n",
+  "TextPart": "Welcome {{name}},\nThanks for joining us. We're excited to have you as part of our community.",
+  "TemplateFile": "welcome.html"
+}

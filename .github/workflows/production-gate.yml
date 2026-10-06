@@ -1,0 +1,53 @@
+name: Production Gate
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: verify
+    runs-on: ubuntu-latest
+    env:
+      MONGOMS_VERSION: "8.2.6"
+      MONGOMS_PREFER_GLOBAL_PATH: "1"
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Cache npm downloads
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: npm-${{ runner.os }}-${{ hashFiles('package.json') }}
+          restore-keys: npm-${{ runner.os }}-
+
+      - name: Cache mongodb-memory-server binary
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/mongodb-binaries
+          key: mongo-bin-${{ runner.os }}-${{ env.MONGOMS_VERSION }}
+
+      - run: npm install --prefer-offline
+
+      #Copy .env.example to .env.development and .env to run tests and build
+      - name: Bootstrap env
+        run: |
+          cp .env.example .env.development
+          cp .env.example .env
+
+      - run: npm run lint
+
+      - run: npm run typecheck
+
+      - run: npm run test:run
+
+      - run: npm run build

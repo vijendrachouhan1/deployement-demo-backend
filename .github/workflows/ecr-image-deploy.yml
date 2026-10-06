@@ -1,0 +1,56 @@
+name: Dev Deploy
+
+on:
+  push:
+    branches: [develop]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  ECR_REGISTRY_URI: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/boilerplate
+
+jobs:
+  Deploy:
+    name: Push to ECR
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: Infisical/secrets-action@v1.0.11
+        with:
+          client-id: ${{ secrets.INFISICAL_CLIENT_ID }}
+          client-secret: ${{ secrets.INFISICAL_CLIENT_SECRET }}
+          domain: "https://app.infisical.com"
+          env-slug: "staging" # environment, Possible Values [ dev, staging, prod ]
+          project-slug: ${{ secrets.INFISICAL_PROJECT_SLUG }}
+          secret-path: /backend # This is the path of folder which we want to fetch envs from
+          export-type: "file" # This will dump all env to an .env file
+
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and push Docker image to ECR
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: ${{ env.ECR_REGISTRY_URI }}:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Clean Up
+        run: |
+          rm -rf .env

@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>You're Invited to Join Byldd</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      .container {
+        max-width: 500px;
+        background-color: #ffffff;
+        margin: 40px auto;
+        padding: 30px 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        text-align: center;
+      }
+      h2 {
+        color: #333333;
+        margin-bottom: 20px;
+      }
+      p {
+        color: #555555;
+        font-size: 15px;
+        line-height: 1.6;
+        margin: 15px 0;
+      }
+      .btn {
+        display: inline-block;
+        background-color: #63cd32;
+        color: #ffffff !important;
+        text-decoration: none;
+        padding: 12px 24px;
+        font-weight: bold;
+        border-radius: 5px;
+        margin: 20px 0;
+        transition: background-color 0.3s ease;
+      }
+      .btn:hover {
+        background-color: #56b12c;
+      }
+      .link {
+        word-break: break-word;
+        color: #0066cc;
+        font-size: 14px;
+        margin: 15px 0;
+      }
+      .footer {
+        margin-top: 30px;
+        font-size: 12px;
+        color: #999999;
+        text-align: center;
+      }
+      .steps {
+        text-align: left;
+        margin: 20px 0;
+        padding-left: 20px;
+      }
+      .steps li {
+        margin-bottom: 10px;
+      }
+      .highlight-box {
+        background-color: #f8f9fa;
+        border-left: 4px solid #63cd32;
+        padding: 15px;
+        margin: 20px 0;
+        text-align: left;
+      }
+      .logo {
+        margin-bottom: 20px;
+        max-height: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="logo">
+        <strong style="font-size: 24px; color: #333">Byldd</strong>
+      </div>
+
+      <h2>You're Invited!</h2>
+      <p>Hello <strong>{{name}}</strong>,</p>
+      <p>
+        You've been invited to join <strong>Byldd</strong> - the platform that
+        helps you build better.
+      </p>
+
+      <div class="highlight-box">
+        <p>Here's what you'll need to do:</p>
+        <ol class="steps">
+          <li>Click the button below to accept your invitation</li>
+          <li>Set up your account password</li>
+          <li>Verify your email with the OTP we'll send you</li>
+        </ol>
+      </div>
+
+      <a
+        href="{{inviteLink}}"
+        class="btn"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Accept Invitation
+      </a>
+
+      <p>
+        If the button doesn't work, copy and paste this link into your browser:
+      </p>
+      <p class="link">{{inviteLink}}</p>
+
+      <p>
+        We're excited to have you on board! If you have any questions, reply to
+        this email.
+      </p>
+
+      <p style="margin-top: 30px">
+        Best regards,<br />
+        <strong>The Byldd Team</strong>
+      </p>
+    </div>
+
+    <div class="footer">
+      <p>&copy; 2025 Byldd. All rights reserved.</p>
+    </div>
+  </body>
+</html>

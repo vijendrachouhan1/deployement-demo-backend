@@ -7,7 +7,7 @@ FROM node:22-alpine3.18 AS base
 RUN apk add --no-cache libc6-compat bash
 
 RUN apk add --no-cache bash curl && curl -1sLf \
-'https://dl.cloudsmith.io/public/infisical/infisical-cli/setup.alpine.sh' | bash \
+'https://artifacts-cli.infisical.com/setup.apk.sh' | bash \
 && apk add infisical
 
 WORKDIR /app

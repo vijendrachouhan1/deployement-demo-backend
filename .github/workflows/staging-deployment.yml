@@ -1,4 +1,4 @@
-name: Dev Deploy
+name: Staging Backend Deployment
 
 on:
   push:
@@ -10,8 +10,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  ECR_REGISTRY_URI: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/boilerplate
-
+  ECR_REGISTRY_URI: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/deployement-demo/backend
 jobs:
   Deploy:
     name: Push to ECR
